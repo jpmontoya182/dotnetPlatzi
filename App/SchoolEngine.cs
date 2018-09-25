@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SchoolCore.App
 {
-    public class SchoolEngine
+    public sealed class SchoolEngine
     {
         public School school { get; set; }
         public SchoolEngine()
@@ -17,7 +17,7 @@ namespace SchoolCore.App
         {
             school = new School("Platzi Academy",
                         2012,
-                        SchoolTypes.Primaria,
+                        SchoolType.Primaria,
                         City: "Medellin"
                     );
 
@@ -28,21 +28,26 @@ namespace SchoolCore.App
 
         private void GenerateGradesPerStudent()
         {
-            Random rnd = new Random();
+            var list = new List<Test>();
             foreach (var course in school.Courses)
             {
-                foreach (var subjects in course.Subjects)
+                foreach (var subjects in course.Subject)
                 {
-                    foreach (var student in course.Students)
+                    foreach (var student in course.Student)                    
                     {
-                        var insert = new GradesByStudentAndSubject(){
-                            StudentId = student.StudentId,
-                            StudentName = student.StudentName,
-                            SubjectId = subjects.SubjectId, 
-                            SubjectName = subjects.SubjectName,
-                            Grade = (float)(5* rnd.NextDouble())
-                        };
-                        course.GradesByStudentAndSubject.Add(insert);
+                        var rnd = new Random(System.Environment.TickCount);
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            var ev = new Test
+                            {
+                                subject = subjects,
+                                Name = $"{subjects.Name} Ev#{i + 1}",
+                                grade = (float)(5* rnd.NextDouble()), 
+                                student = student
+                            };
+                            student.Tests.Add(ev);
+                        }                        
                     }    
                 }
             }
@@ -55,9 +60,9 @@ namespace SchoolCore.App
 
            var StudentList = (from n1 in firstName
                             from l1 in lastname
-                            select new Student{StudentName = $"{n1} {l1}"});
+                            select new Student{Name = $"{n1} {l1}"});
 
-           return  StudentList.OrderBy((al)=> al.StudentId).Take(quantity).ToList();
+           return  StudentList.OrderBy((al)=> al.Id).Take(quantity).ToList();
         }
 
         private void LoadSubjects()
@@ -65,30 +70,30 @@ namespace SchoolCore.App
             foreach (var course in school.Courses)
             {
                 var subjectsList = new List<Subject>(){
-                    new Subject{SubjectName = "Math"},
-                    new Subject{SubjectName = "Physics"},
-                    new Subject{SubjectName = "Spain"},
-                    new Subject{SubjectName = "Sciences"}
+                    new Subject{Name = "Math"},
+                    new Subject{Name = "Physics"},
+                    new Subject{Name = "Spain"},
+                    new Subject{Name = "Sciences"}
                 };
-                course.Subjects = subjectsList; 
+                course.Subject = subjectsList; 
             }
         }
 
         private void LoadCourses()
         {            
             school.Courses = new List<Course>(){
-                new Course() { CourseName = "101", WorkingDay = WorkingDayTypes.Morning },
-                new Course() { CourseName = "201",WorkingDay = WorkingDayTypes.Morning },
-                new Course() { CourseName = "301", WorkingDay = WorkingDayTypes.Morning },
-                new Course() { CourseName = "401", WorkingDay = WorkingDayTypes.Afternoon },
-                new Course() { CourseName = "501",WorkingDay = WorkingDayTypes.Afternoon }
+                new Course() { Name = "101", WorkingDay = WorkingDayType.Morning },
+                new Course() { Name = "201",WorkingDay = WorkingDayType.Morning },
+                new Course() { Name = "301", WorkingDay = WorkingDayType.Morning },
+                new Course() { Name = "401", WorkingDay = WorkingDayType.Afternoon },
+                new Course() { Name = "501",WorkingDay = WorkingDayType.Afternoon }
             };
 
             Random rnd = new Random();
             foreach (var c in school.Courses)
             {                
                 int randomNumber = rnd.Next(5, 20);
-                c.Students = GenerateAleatoryStudents(randomNumber);
+                c.Student = GenerateAleatoryStudents(randomNumber);
             }
         }
     }

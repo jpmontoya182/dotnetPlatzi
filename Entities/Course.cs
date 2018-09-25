@@ -3,18 +3,10 @@ using System.Collections.Generic;
 
 namespace SchoolCore.Entities
 {
-    public class Course
+    public class Course : SchoolObjBase
     {
-        public string CourseName { get; set; }
-        public string CourseId { get; private set; }
-        public WorkingDayTypes WorkingDay { get; set; }
-        public List<Subject> Subjects {get; set;}
-        public List<Student> Students {get; set;}    
-        public List<GradesByStudentAndSubject>  GradesByStudentAndSubject {get; set;}
-        public Course() 
-        {
-            CourseId = Guid.NewGuid().ToString();
-            GradesByStudentAndSubject = new List<GradesByStudentAndSubject>();
-        }
+        public WorkingDayType WorkingDay { get; set; }
+        public List<Subject> Subject {get; set;}
+        public List<Student> Student {get; set;}    
     }
 }

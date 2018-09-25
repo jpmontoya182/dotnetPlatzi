@@ -15,6 +15,15 @@ namespace SchoolCore
             var engine = new SchoolEngine();
             engine.InitValues();
             printCourses(engine.school);
+            
+            Printer.DrawLine(20);
+            Printer.DrawLine(20);
+            Printer.DrawLine(20);
+
+            var studentTest = new Student{
+                Name ="claire UnderWood"
+            };
+
         }
 
         private static void printCourses(School school)
@@ -25,7 +34,7 @@ namespace SchoolCore
 
                 foreach (var item in school.Courses)
                 {
-                    WriteLine($"HashCode : {item.GetHashCode()}, NameCourse: {item.CourseName} , IdCourse: {item.CourseId}, WorkingDay: {item.WorkingDay}");
+                    WriteLine($"HashCode : {item.GetHashCode()}, NameCourse: {item.Name} , IdCourse: {item.Id}, WorkingDay: {item.WorkingDay}");
                 }
             }
             // Printer.PrinterBeep();

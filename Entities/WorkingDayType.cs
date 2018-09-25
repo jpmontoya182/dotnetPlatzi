@@ -1,6 +1,6 @@
 namespace SchoolCore.Entities
 {
-    public enum WorkingDayTypes
+    public enum WorkingDayType
     {
         Morning, 
         Afternoon,

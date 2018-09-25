@@ -1,6 +1,6 @@
 namespace SchoolCore.Entities
 {
-    public enum SchoolTypes 
+    public enum SchoolType
     {
         Primaria, 
         Secudanria, 

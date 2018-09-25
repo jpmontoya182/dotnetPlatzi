@@ -1,12 +1,13 @@
 using System;
+using System.Collections.Generic;
 
 namespace SchoolCore.Entities
 {
-    public class Student
+    public class Student : SchoolObjBase
     {
-        public string StudentId { get; private set; }
-        public string StudentName { get; set; }
-
-        public Student() => StudentId = Guid.NewGuid().ToString();
+        public List<Test> Tests {get; set;}
+        public Student(){
+            Tests = new List<Test>();
+        }
     }    
 }
