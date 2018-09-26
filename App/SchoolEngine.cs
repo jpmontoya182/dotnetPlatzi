@@ -96,5 +96,24 @@ namespace SchoolCore.App
                 c.Student = GenerateAleatoryStudents(randomNumber);
             }
         }
+
+        public List<SchoolObjBase> getShcoolObjects()
+        {
+            var listObj = new List<SchoolObjBase>();
+            listObj.Add(school);
+            listObj.AddRange(school.Courses);
+            foreach (var course in school.Courses)
+            {
+               listObj.AddRange(course.Subject); 
+               listObj.AddRange(course.Student); 
+
+               foreach (var student in course.Student)
+               {
+                   listObj.AddRange(student.Tests);
+               }  
+            }
+
+            return listObj;
+        }
     }
 }

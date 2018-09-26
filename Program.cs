@@ -15,14 +15,7 @@ namespace SchoolCore
             var engine = new SchoolEngine();
             engine.InitValues();
             printCourses(engine.school);
-            
-            Printer.DrawLine(20);
-            Printer.DrawLine(20);
-            Printer.DrawLine(20);
-
-            var studentTest = new Student{
-                Name ="claire UnderWood"
-            };
+            var ObjectList = engine.getShcoolObjects();
 
         }
 
