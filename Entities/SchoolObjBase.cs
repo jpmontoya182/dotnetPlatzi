@@ -11,5 +11,10 @@ namespace SchoolCore.Entities
         {
             Id = Guid.NewGuid().ToString();
         }
+
+        public override string ToString()
+        {
+            return $"{Name}, {Id}";
+        }
     }
 }
