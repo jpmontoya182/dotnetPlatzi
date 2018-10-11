@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System;
+using SchoolCore.Utilities;
 
 namespace SchoolCore.Entities
 {
-    public class School : SchoolObjBase
+    public class School : SchoolObjBase, IPlace
     {
         #region Properties
             public int CreationYear { get; set; }
@@ -11,6 +12,7 @@ namespace SchoolCore.Entities
             public string City { get; set; }
             public SchoolType SchoolType { get; set; }
             public List<Course> Courses { get; set; }
+            public string Address { get; set; }
 
         #endregion
 
@@ -35,5 +37,14 @@ namespace SchoolCore.Entities
             return $"Nombre: {Name}, Tipo: {SchoolType} \nPais: {Country}, Ciudad: {City}";
         }
 
+        public void CleanPlace()
+        {
+            Printer.DrawLine();
+            Console.WriteLine("Cleaning school..");
+            foreach (var course in Courses)
+            {
+                course.CleanPlace();
+            }
+        }
     }
 }
